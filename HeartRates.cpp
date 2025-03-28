@@ -4,8 +4,8 @@ using namespace std;
 
 class HeartRates {
 private: 
-    string firstName, lastName, birthMonth;
-    int birthDay, birthYear, maximumHeartRate, targetHeartRate, lowerEnd, upperEnd;
+    string firstName, lastName, birthMonth, currentMonth;  
+    int birthDay, currentDay, birthYear, currentYear, maximumHeartRate, targetHeartRate, lowerEnd, upperEnd;
 
 public:
     void setFName (string first) { 
@@ -25,7 +25,8 @@ public:
     }
     int getAge (int year) {
         int age;
-        age = 2025 - year;
+        int yearNow;
+        age = yearNow - year;
 
         return age;
     }
