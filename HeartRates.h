@@ -1,7 +1,6 @@
 #ifndef HEARTRATES_H
 #define HEARTRATES_H
-
-#include <iostream>
+#include <string>
 using namespace std;
 
 class HeartRates {

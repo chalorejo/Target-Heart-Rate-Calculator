@@ -5,17 +5,33 @@ using namespace std;
 class HeartRates {
 private: 
     string firstName, lastName, birthMonth;
-    int birthDay, birthYear, maximumHeartRate, targetHeartRate, lowerEnd, upperEnd, age;
+    int birthDay, birthYear, maximumHeartRate, targetHeartRate, lowerEnd, upperEnd;
 
 public:
-    int getAge(int birthYear, int age) {
-        age = 2025 - birthYear;
+    void setFName (string first) { 
+        firstName = first;
+    }
+    void setLName (string last){
+        lastName = last;
+    }
+    void setBMonth (string month){
+        birthMonth = month;
+    }
+    void setBDay (int day){
+        birthDay = day;
+    }
+    void setBYear (int year){
+        birthYear = year;
+    }
+    int getAge (int year) {
+        int age;
+        age = 2025 - year;
 
         return age;
     }
-    int getMaximumHeartRate(int age) { //According to the internet, the maximum heart rate is 220 - age
-        maximumHeartRate = 220 - age;
-        cout << "Maximum Heart Rate: " << maximumHeartRate << " bpm" << endl;
+    int getMaximumHeartRate(int age) { 
+        maximumHeartRate = 220 - age; //According to the internet, the maximum heart rate is 220 - age
+        // cout << "Maximum Heart Rate: " << maximumHeartRate << " bpm" << endl;
         
         return maximumHeartRate;
     }
