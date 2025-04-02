@@ -1,84 +1,54 @@
-#include <iostream>
+// HeartRates.cpp (Implementation File)
 #include "HeartRates.h"
-using namespace std;
 
-class Person {
-private: 
-    string firstName, lastName, birthMonth, currentMonth;  
-    int birthDay, currentDay, birthYear, currentYear, maximumHeartRate, targetHeartRate, lowerEnd, upperEnd;
+const string HeartRates::monthsInYear[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-public:
-    Person (string first, string last, string month, int day, int year, string cMonth, int cDay, int cYear) { //For person, this is also a constrctor
-        firstName = first;
-        lastName = last;
-        birthMonth = month;
-        birthDay = day;
-        birthYear = year;  
-        currentMonth = cMonth; 
-        currentDay = cDay;
-        currentYear = cYear;
-    }
+HeartRates::HeartRates(string fName, string lName, string bMonth, int bDay, int bYear)
+    : firstName(fName), lastName(lName), birthMonth(bMonth), birthDay(bDay), birthYear(bYear) {}
 
-    Person (int maxHeartR, int targetHeartR, int lowEnd, int upEnd) { //For heart rate, this is also a constructor
-        maximumHeartRate = maxHeartR;
-        targetHeartRate = targetHeartR;
-        lowerEnd = lowEnd;
-        upperEnd = upEnd;
-    }
-    void setFName (string first) { 
-        firstName = first;
-    }
-    void setLName (string last){
-        lastName = last;
-    }
-    void setBMonth (string month){
-        birthMonth = month;
-    }
-    void setBDay (int day){
-        birthDay = day;
-    }
-    void setBYear (int year){
-        birthYear = year;
-    }
+string HeartRates::getFirstName() const { return firstName; }
+string HeartRates::getLastName() const { return lastName; }
+string HeartRates::getBirthMonth() const { return birthMonth; }
+int HeartRates::getBirthDay() const { return birthDay; }
+int HeartRates::getBirthYear() const { return birthYear; }
 
-    void setCMonth (string month){
-        currentMonth = month;
+bool HeartRates::isValidMonth(const string &month) {
+    for (const string &m : monthsInYear) {
+        if (month == m) return true;
     }
-    void setCDay (int day){
-        currentDay = day;
-    }
-    void setCYear (int year){
-        currentYear = year;
-    }
-    void setMaxHeartRate (int maxHeartR) {
-        maximumHeartRate = maxHeartR;
-    }
-    void setTargetHeartRate (int targetHeartR) {
-        targetHeartRate = targetHeartR;
-    }
-    void setLowerEnd (int lowEnd) {
-        lowerEnd = lowEnd;
-    }
-    void setUpperEnd (int upEnd) {
-        upperEnd = upEnd;
-    }
-    int getAge (int year) {
-        int age;
-        int yearNow;
-        age = yearNow - year;
+    return false;
+}
 
-        return age;
-    }
-    int getMaximumHeartRate(int age, int maxHeartR) { 
-        maxHeartR = 220 - age; //According to the internet, the maximum heart rate is 220 - age
-        // cout << "Maximum Heart Rate: " << maximumHeartRate << " bpm" << endl;
-        
-        return maxHeartR;
-    }
-    int getTargetHeartRate(int lowEnd, int upEnd, int maxHeartR) { //Target heart rate is 50% to 85% of maximum heart rate
-        lowEnd = maxHeartR * 0.5;
-        upEnd = maxHeartR * 0.85; 
+bool HeartRates::isValidDay(const string &month, int day) {
+    if (day < 1 || day > 31) return false;
+    if (day == 31 && (month == "April" || month == "June" || month == "September" || month == "November")) return false;
+    if (day > 29 && month == "February") return false;
+    return true;
+}
 
-        return lowEnd, upEnd;
+int HeartRates::getMonthIndex(const string &month) {
+    for (int i = 0; i < 12; i++) {
+        if (monthsInYear[i] == month) return i;
     }
-};
+    return -1;
+}
+
+int HeartRates::getAge(int currentYear, string currentMonth, int currentDay) const {
+    int age = currentYear - birthYear;
+    int birthMonthIndex = getMonthIndex(birthMonth);
+    int currentMonthIndex = getMonthIndex(currentMonth);
+    
+    if (birthMonthIndex > currentMonthIndex || (birthMonthIndex == currentMonthIndex && birthDay > currentDay)) {
+        age--;
+    }
+    return age;
+}
+
+int HeartRates::getMaximumHeartRate(int age) const {
+    return 220 - age;
+}
+
+void HeartRates::getTargetHeartRate(int maxHeartRate, int &lower, int &upper) const {
+    lower = maxHeartRate * 0.5;
+    upper = maxHeartRate * 0.85;
+}
