@@ -21,12 +21,14 @@ int main() {
         do {
             cout << "Enter birth month: ";
             cin >> birthMonth;
-        } while (!HeartRates::isValidMonth(birthMonth));
+        } 
+        while (!HeartRates::isValidMonth(birthMonth));
         
         do {
             cout << "Enter birth day (1-31): ";
             cin >> birthDay;
-        } while (!HeartRates::isValidDay(birthMonth, birthDay));
+        } 
+        while (!HeartRates::isValidDay(birthMonth, birthDay));
         
         cout << "Enter birth year: ";
         cin >> birthYear;
@@ -34,12 +36,14 @@ int main() {
         do {
             cout << "Enter current month: ";
             cin >> currentMonth;
-        } while (!HeartRates::isValidMonth(currentMonth));
+        } 
+        while (!HeartRates::isValidMonth(currentMonth));
         
         do {
             cout << "Enter current day (1-31): ";
             cin >> currentDay;
-        } while (!HeartRates::isValidDay(currentMonth, currentDay));
+        } 
+        while (!HeartRates::isValidDay(currentMonth, currentDay));
         
         cout << "Enter current year: ";
         cin >> currentYear;
@@ -49,7 +53,7 @@ int main() {
         maxHeartRate = person.getMaximumHeartRate(age);
         person.getTargetHeartRate(maxHeartRate, lowerEnd, upperEnd);
 
-        cout << "\n--- Heart Rate Information ---" << endl;
+        cout << endl << "-- Heart Rate Information ---" << endl;
         cout << "Name: " << person.getFirstName() << " " << person.getLastName() << endl;
         cout << "Date of Birth: " << person.getBirthMonth() << " " << person.getBirthDay() << ", " << person.getBirthYear() << endl;
         cout << "Age: " << age << " years old" << endl;
@@ -61,9 +65,14 @@ int main() {
         if (choice == 'y' || choice == 'Y') {
             count--;
         } else {
-            cout << "Thank you for using the Target Heart Rate Calculator!" << endl;
             break;
         }
+    }
+    if(count == 0) {
+        cout << "You have reached the maximum number of calculations." << endl;
+        cout << "Please restart the program to calculate again." << endl;
+    } else {
+        cout << "Thank you for using the Target Heart Rate Calculator!" << endl;
     }
     return 0;
 }

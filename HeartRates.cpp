@@ -16,14 +16,24 @@ bool HeartRates::isValidMonth(const string &month) {
     for (const string &m : monthsInYear) {
         if (month == m) return true;
     }
+    cout << "Invalid month!" << endl;
     return false;
 }
 
 bool HeartRates::isValidDay(const string &month, int day) {
-    if (day < 1 || day > 31) return false;
-    if (day == 31 && (month == "April" || month == "June" || month == "September" || month == "November")) return false;
-    if (day > 29 && month == "February") return false;
-    return true;
+    if (day < 1 || day > 31) {
+        cout << "Invalid day!" << endl;
+        return false;
+    }
+    if (day == 31 && (month == "April" || month == "June" || month == "September" || month == "November")) {
+        cout << "Invalid day for " << month << "!" << endl;
+        return false;
+    }
+    if (day > 29 && month == "February") {
+        cout << "Invalid day for " << month << "!" << endl;
+        return false;
+    }
+    return true; // Return true only if all checks pass
 }
 
 int HeartRates::getMonthIndex(const string &month) {
